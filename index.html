@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Photo Studio</title>
+  <style>
+/* সাধারণ স্টাইল */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+  color: #333;
+}
+
+header {
+  background-color: #000;  /* ডার্ক ব্লু ব্যাকগ্রাউন্ড */
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.tabs {
+  margin-top: 10px;
+}
+
+.tab-button {
+  background-color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.tab-button:hover {
+  background-color: #ddd;
+}
+
+main {
+  padding: 20px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.photos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.photos img {
+  width: 150px;
+  height: auto;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.photos img:hover {
+  transform: scale(1.05);
+}
+
+.preview-box {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.preview-box img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #fff;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+#callBtn, #mapBtn {
+  background-color: #28a745;
+  color: white;
+  padding: 12px 20px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+#callBtn:hover, #mapBtn:hover {
+  background-color: #218838;
+}
+
+footer {
+  background: #000;  /* কালো ব্যাকগ্রাউন্ড */
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 40px;
+}
+
+/* মোবাইল ভিউ */
+@media (max-width: 768px) {
+  header {
+    font-size: 16px;
+  }
+
+  .photos img {
+    width: 100%;
+    height: auto;
+  }
+
+  .tab-button {
+    padding: 8px 15px;
+  }
+
+  #callBtn, #mapBtn {
+    width: 100%;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+}
+
+/* ডেস্কটপ ভিউ */
+@media (min-width: 769px) {
+  .photos img {
+    width: 200px;
+  }
+
+  .tabs {
+    display: block;
+  }
+}
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>ইমেজ ফটো স্টুডিও</h1>
+    <div class="tabs">
+      <button class="tab-button" onclick="showTab('services')">সেবা</button>
+      <button class="tab-button" onclick="showTab('photos')">ছবি</button>
+      <button class="tab-button" onclick="showTab('contact')">যোগাযোগ</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Services Tab -->
+    <section id="services" class="tab-content active">
+      <h2>আমাদের সেবা সমূহ</h2>
+      <ul>
+        <li>ফটোগ্রাফি</li>
+        <li>ছবি থেকে ছবি</li>
+        <li>ফটো প্রিন্ট</li>
+        <li>রঙিন ও সাদা কালো ফটোকপি</li>
+        <li>ল্যামিনেশন</li>
+      </ul>
+    </section>
+
+    <!-- Photos Tab -->
+    <section id="photos" class="tab-content">
+      <h2>দোকানের কিছু ছবি</h2>
+      <div class="photos">
+        <img src="https://github.com/mdmominulhaqueifti21/my-photos/blob/main/1.JPG?raw=true" alt="Photo 1">
+        <img src="https://github.com/mdmominulhaqueifti21/my-photos/blob/main/2.JPG?raw=true" alt="Photo 2">
+        <img src="https://github.com/mdmominulhaqueifti21/my-photos/blob/main/3.JPG?raw=true" alt="Photo 3">
+        <img src="https://github.com/mdmominulhaqueifti21/my-photos/blob/main/4.JPG?raw=true" alt="Photo 4">
+        <img src="https://github.com/mdmominulhaqueifti21/my-photos/blob/main/5.JPG?raw=true" alt="Photo 5">
+        <img src="https://github.com/mdmominulhaqueifti21/my-photos/blob/main/6.JPG?raw=true" alt="Photo 6">
+      </div>
+
+      <!-- Preview Box -->
+      <div id="previewBox" class="preview-box">
+        <span onclick="closePreview()" class="close-btn">✖</span>
+        <img id="previewImage" src="" alt="Preview">
+      </div>
+    </section>
+
+    <!-- Contact Tab -->
+    <section id="contact" class="tab-content">
+      <h2>যোগাযোগ করুন</h2>
+      <p>প্রোঃ মোঃ মোস্তফা মিয়া</p>
+      <p>📞 মোবাইল: <a href="tel:01728475979">+8801728475979</a></p>
+      <p>✉️ ইমেইল: <a href="mailto:mdmustufamiah777@gmail.com">mdmustufamiah777@gmail.com</a></p>
+      <p>📍 ঠিকানা: Shahbazpur, UbayedUllah Road, Sarail, Brahmanbaria</p>
+
+      <button id="callBtn">📞 কল করুন</button>
+      <a href="https://maps.app.goo.gl/wefReALCxcCkwnrcA" target="_blank">
+        <button id="mapBtn">📍 ম্যাপে দেখুন</button>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Image Photo Studio</p>
+  </footer>
+
+  <script>
+    function showTab(tabId) {
+      let tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    document.getElementById('callBtn').addEventListener('click', function () {
+      window.location.href = "tel:01728475979";
+    });
+
+    function openPreview(src) {
+      document.getElementById('previewImage').src = src;
+      document.getElementById('previewBox').style.display = 'flex';
+    }
+
+    function closePreview() {
+      document.getElementById('previewBox').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
